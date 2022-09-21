@@ -1,8 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import './UserForm.css';
-import UserChoice from "./UserChoice";
+// import UserChoice from "./UserChoice";
 
 export default function UserForm() {
+    // let [data, setData] = useState({});
+    let [firstName, setfirstName] = useState({});
+    let [lastName, setlastName] = useState({});
+    let [age, setAge] = useState({});
+    // if (firstName) { setData({ firstName: { firstName } }) };
+    // if (lastName) { setData({ lastName: { lastName } }) };
+    // if (age) { setData({ age: { age } }) };
 
     return (
         <div className="userForm">
@@ -11,7 +18,7 @@ export default function UserForm() {
                     <div>First Name</div>
                     <div>
                         <label className="general">
-                            <input className="inputEqualWidth" type="text" value='' /*onChange={ge}*/ placeholder='First Name' />
+                            <input className="inputEqualWidth" type="text" onChange={(event) => { setfirstName({ firstName: event.target.value }) }} placeholder='First Name' />
                         </label>
                     </div>
                 </div>
@@ -20,7 +27,7 @@ export default function UserForm() {
                     <div>
                         <label className="general">
 
-                            <input className="inputEqualWidth" type="text" value='' /*onChange={ge}*/ placeholder='Last Name' />
+                            <input className="inputEqualWidth" type="text" onChange={(event) => { setlastName({ lastName: event.target.value }) }} placeholder='Last Name' />
                         </label>
                     </div>
                 </div>
@@ -28,7 +35,7 @@ export default function UserForm() {
                     <div>Age</div>
                     <div>  <label className="general">
 
-                        <input type="text" className="inputEqualWidth" value='' /*onChange={ge}*/ placeholder='Age' />
+                        <input type="text" className="inputEqualWidth" onChange={(event) => { setAge({ age: event.target.value }) }} placeholder='Age' />
                     </label></div>
                 </div>
                 <div className="choice">
@@ -39,7 +46,7 @@ export default function UserForm() {
                     <div>Fafourite Color</div>
                     <div>
                         <label>
-                            <select name="color" className="inputEqualWidth">
+                            <select name="color" className="inputEqualWidth" /*onChange={(event) => { setData({ color: event.target.value }) }}*/>
                                 <option value="red"></option>
                                 <option value="red">red</option>
                                 <option value="green">green</option>
@@ -51,18 +58,18 @@ export default function UserForm() {
                 <div className="choice">
                     <div className="head">Sauces</div>
                     <div>
-                        <label className="sauces"><input type="checkbox" name="ketchup" value="yes" /> Ketchup  </label>
-                        <label className="sauces">  <input type="checkbox" name="mustard" value="yes" /> Mustard  </label>
-                        <label className="sauces">  <input type="checkbox" name="mayonnaise" value="yes" /> Mayonnaise  </label>
-                        <label className="sauces">  <input type="checkbox" name="guacamole" value="yes" /> Guacamole  </label>
+                        <label className="sauces"><input type="checkbox" name="ketchup" value="Ketchup" /> Ketchup  </label>
+                        <label className="sauces">  <input type="checkbox" name="mustard" value="Mustard" /> Mustard  </label>
+                        <label className="sauces">  <input type="checkbox" name="mayonnaise" value="Mayonnaise" /> Mayonnaise  </label>
+                        <label className="sauces">  <input type="checkbox" name="guacamole" value="Guacamole" /> Guacamole  </label>
                     </div>
                 </div>
                 <div className="choice">
                     <div>Best Stoodge</div>
                     <div>
-                        <label className="stoodge"> <input checked type="radio" name="larry" value="lager" /> Larry</label>
-                        <label className="stoodge"> <input type="radio" name="moe" value="lager" /> Moe</label>
-                        <label className="stoodge"> <input type="radio" name="curly" value="lager" /> Curly</label>
+                        <label className="stoodge"> <input checked type="radio" name="Larry" value="lager" /> Larry</label>
+                        <label className="stoodge"> <input type="radio" name="moe" value="Moe" /> Moe</label>
+                        <label className="stoodge"> <input type="radio" name="curly" value="Curly" /> Curly</label>
                     </div> </div>
                 <div className="choice">
                     <div>Notes</div>
@@ -74,7 +81,14 @@ export default function UserForm() {
                     <button className="btnR" type="reset">Reset</button>
                 </div>
 
-                <UserChoice />
+                <div className="userChoice">
+                    ｛
+                    <p> {Object.keys(firstName)}   {Object.values(firstName)}</p>
+                    <p> {Object.keys(lastName)}   {Object.values(lastName)}</p>
+                    <p> {Object.keys(age)}   {Object.values(age)}</p>
+                    ｝
+                </div>
+
 
             </form >
         </div >
