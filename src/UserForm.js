@@ -1,9 +1,9 @@
 import React, { createRef, useState } from "react";
 import './UserForm.css';
-// import UserChoice from "./UserChoice";
 
 export default function UserForm() {
     let [disabledBtn, setdisabledBtn] = useState('disabled');
+    let [clickSubmit, setclickSubmit] = useState(false);
     let [firstName, setfirstName] = useState({});
     let [lastName, setlastName] = useState({});
     let [age, setAge] = useState({});
@@ -31,6 +31,7 @@ export default function UserForm() {
             setStoodge({ stoodge: 'larry' });
             setNotes({});
             setshowSauces({});
+            setclickSubmit(false);
             setageclassName('inputEqualWidth');
             setfirstnameclassName('inputEqualWidth');
             setlastnameclassName('inputEqualWidth');
@@ -62,6 +63,7 @@ export default function UserForm() {
     function submitData(event) {
         event.preventDefault();
         let objForm = {};
+        setclickSubmit(true);
         let respValid = fieldValidator();
         if (respValid) {
             setageclassName('inputEqualWidth');
@@ -72,7 +74,6 @@ export default function UserForm() {
             objForm = Object.assign(firstName, lastName, age, employed, color, stoodge, notes);
             objForm['sauces'] = sauces;
             alert(JSON.stringify(objForm));
-            console.log(objForm);
         }
     }
 
@@ -83,7 +84,16 @@ export default function UserForm() {
                     <div>First Name</div>
                     <div>
                         <label className="general">
-                            <input className={firstnameclassName} type="text" onChange={(event) => { setfirstName({ firstName: event.target.value }) }} placeholder='First Name' />
+                            <input className={firstnameclassName} type="text" onChange={(event) => {
+                                if (!clickSubmit) { setfirstName({ firstName: event.target.value }); }
+                                else {
+                                    if (!/^[a-zA-Z\s]+$/.test(event.target.value)) { setfirstnameclassName('redBorder'); setfirstName({}); }
+                                    else {
+                                        setfirstName({ firstName: event.target.value });
+                                        setfirstnameclassName('inputEqualWidth');
+                                    }
+                                }
+                            }} placeholder='First Name' />
                         </label>
                     </div>
                 </div>
@@ -91,16 +101,32 @@ export default function UserForm() {
                     <div>Last Name</div>
                     <div>
                         <label className="general">
-
-                            <input className={lastnameclassName} type="text" onChange={(event) => { setlastName({ lastName: event.target.value }) }} placeholder='Last Name' />
+                            <input className={lastnameclassName} type="text" onChange={(event) => {
+                                if (!clickSubmit) { setlastName({ lastName: event.target.value }); }
+                                else {
+                                    if (!/^[a-zA-Z\s]+$/.test(event.target.value)) { setlastnameclassName('redBorder'); setlastName({}); }
+                                    else {
+                                        setlastName({ lastName: event.target.value });
+                                        setlastnameclassName('inputEqualWidth');
+                                    }
+                                }
+                            }} placeholder='Last Name' />
                         </label>
                     </div>
                 </div>
                 <div className="choice">
                     <div>Age</div>
                     <div>  <label className="general">
-
-                        <input type="text" className={ageclassName} onChange={(event) => { setAge({ age: event.target.value }) }} placeholder='Age' />
+                        <input type="text" className={ageclassName} onChange={(event) => {
+                            if (!clickSubmit) { setAge({ age: event.target.value }); }
+                            else {
+                                if (!/^\d+$/.test(event.target.value)) { setageclassName('redBorder'); setAge({}); }
+                                else {
+                                    setAge({ age: event.target.value });
+                                    setageclassName('inputEqualWidth');
+                                }
+                            }
+                        }} placeholder='Age' />
                     </label></div>
                 </div>
                 <div className="choice">
@@ -138,8 +164,16 @@ export default function UserForm() {
                     </div> </div>
                 <div className="choice">
                     <div>Notes</div>
-
-                    <div>  <label> <textarea className={notesclassName} placeholder="Notes" maxLength={100} name="text1" cols="30" rows="10" onChange={(event) => setNotes({ notes: event.target.value })}></textarea> </label></div>
+                    <div>  <label> <textarea className={notesclassName} placeholder="Notes" maxLength={100} name="text1" cols="30" rows="10" onChange={(event) => {
+                        if (!clickSubmit) { setNotes({ notes: event.target.value }); }
+                        else {
+                            if (event.target.value && event.target.value.length > 100) { setnotesclassName('redBorder'); setNotes({}); }
+                            else {
+                                setNotes({ notes: event.target.value });
+                                setnotesclassName('inputEqualWidth');
+                            }
+                        }
+                    }}></textarea> </label></div>
                 </div>
                 <div className="btn">
                     <button className="btnS" type="submit" disabled={disabledBtn} >Submit</button>
@@ -148,13 +182,13 @@ export default function UserForm() {
 
                 <div className="userChoice">
                     ｛
-                    {firstName.firstName && <p> {`firstName: ${firstName.firstName} `} </p>}
-                    <p> {Object.keys(lastName)}   {Object.values(lastName)}</p>
-                    <p> {Object.keys(age)}   {Object.values(age)}</p>
-                    <p> {Object.keys(color)}   {Object.values(color)}</p>
-                    <p> {Object.keys(employed)}   {Object.values(employed)}</p>
-                    <p> {Object.keys(notes)}   {Object.values(notes)}</p>
-                    <p> {Object.keys(stoodge)}   {Object.values(stoodge)}</p>
+                    {firstName.firstName && <p> {`"firstName": "${firstName.firstName}" `} </p>}
+                    {lastName.lastName && <p> {`"lastName": "${lastName.lastName}" `} </p>}
+                    {age.age && <p> {`"age": "${age.age}" `} </p>}
+                    {color.color && <p> {`"color": "${color.color}" `} </p>}
+                    {employed.employed && <p> {`"employed": "${employed.employed}" `} </p>}
+                    {notes.notes && <p> {`"notes": "${notes.notes}" `} </p>}
+                    {stoodge.stoodge && <p> {`"stoodge": "${stoodge.stoodge}" `} </p>}
                     <p> {Object.keys(showSauces)}  {sauces.map((sauce, index) => {
                         return (
                             <span key={index} > {`  ${sauce},   `} </span>
@@ -162,8 +196,6 @@ export default function UserForm() {
                     })} </p>
                     ｝
                 </div>
-
-
             </form >
         </div >
     )
