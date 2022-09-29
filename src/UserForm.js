@@ -2,22 +2,22 @@ import React, { createRef, useState } from "react";
 import './UserForm.css';
 
 export default function UserForm() {
-    let [disabledBtn, setdisabledBtn] = useState('disabled');
-    let [clickSubmit, setclickSubmit] = useState(false);
-    let [firstName, setfirstName] = useState({});
-    let [lastName, setlastName] = useState({});
-    let [age, setAge] = useState({});
-    let [employed, setEmployed] = useState({ employed: "false" });
-    let [color, setColor] = useState({});
-    let [sauces, setSauces] = useState([]);
-    let [stoodge, setStoodge] = useState({ stoodge: 'larry' });
-    let [notes, setNotes] = useState({});
-    let form = createRef();
-    let [showSauces, setshowSauces] = useState({});
-    let [ageclassName, setageclassName] = useState('inputEqualWidth');
-    let [firstnameclassName, setfirstnameclassName] = useState('inputEqualWidth');
-    let [lastnameclassName, setlastnameclassName] = useState('inputEqualWidth');
-    let [notesclassName, setnotesclassName] = useState('inputEqualWidth');
+    const [disabledBtn, setdisabledBtn] = useState('disabled');
+    const [clickSubmit, setclickSubmit] = useState(false);
+    const [firstName, setfirstName] = useState({});
+    const [lastName, setlastName] = useState({});
+    const [age, setAge] = useState({});
+    const [employed, setEmployed] = useState({ employed: "false" });
+    const [color, setColor] = useState({});
+    const [sauces, setSauces] = useState([]);
+    const [stoodge, setStoodge] = useState({ stoodge: 'larry' });
+    const [notes, setNotes] = useState({});
+    const form = createRef();
+    const [showSauces, setshowSauces] = useState({});
+    const [ageclassName, setageclassName] = useState('inputEqualWidth');
+    const [firstnameclassName, setfirstnameclassName] = useState('inputEqualWidth');
+    const [lastnameclassName, setlastnameclassName] = useState('inputEqualWidth');
+    const [notesclassName, setnotesclassName] = useState('inputEqualWidth');
 
     function resetData(e) {
         if (!disabledBtn) {
@@ -179,7 +179,6 @@ export default function UserForm() {
                     <button className="btnS" type="submit" disabled={disabledBtn} >Submit</button>
                     <button className="btnR" type="reset" disabled={disabledBtn} onClick={resetData}>Reset</button>
                 </div>
-
                 <div className="userChoice">
                     ｛
                     {firstName.firstName && <p> {`"firstName": "${firstName.firstName}" `} </p>}
@@ -199,6 +198,4 @@ export default function UserForm() {
             </form >
         </div >
     )
-
-
 }
